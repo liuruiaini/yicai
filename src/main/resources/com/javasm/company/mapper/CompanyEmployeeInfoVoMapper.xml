@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.javasm.company.mapper.CompanyEmployeeInfoVoMapper">
+
+
+    <select id="findById" resultType="com.javasm.company.bean.Vo.CompanyEmployeeInfoVo" parameterType="integer">
+         select e.*,b.company_name,m.menu_name from company_employee_info e left join
+                                                    company_base_info b on e.company_id=b.company_id
+                                                    left join company_menu_info m on e.menu_id=m.menu_id where e.employee_id=#{id};
+
+    </select>
+    <select id="findAll" resultType="com.javasm.company.bean.Vo.CompanyEmployeeInfoVo" >
+        select e.*,b.company_name,m.menu_name from company_employee_info e left join
+                                                   company_base_info b on e.company_id=b.company_id
+                                                                           left join company_menu_info m on e.menu_id=m.menu_id where e.company_id = #{companyId}
+                                                    limit #{index} , #{size};
+    </select>
+</mapper>

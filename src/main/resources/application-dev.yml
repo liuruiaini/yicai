@@ -1,0 +1,78 @@
+##开发环境配置
+# 配置测试对象
+ymluser:
+  name: 刘瑞
+  age: 10
+# 配置端口号
+server:
+  port: 8088
+# 配置slf4j
+logging:
+  config: logback.xml
+# 配置不同的微服务地址
+url:
+  #订单微服地址
+  orderurl: http://localhost:8010
+  #商品微服地址
+  producturl: http://localhost:8011
+  #角色微服地址
+  roleurl: http://localhost:8012
+#mybatises配置
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver #mysql connector 6以上版本使用，url需要配置serverTimezone
+    url: jdbc:mysql://localhost:3306/yicai?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    type: com.alibaba.druid.pool.DruidDataSource #连接池类型
+    initial-size: 5 #数据库连接池初始化的时候连接初始化连接数量；其会在应用程序第一次进行CRUD的时候进行初始化，所以初始化数量并不是越多越好，数量越多第一次操作数据库就会越慢；
+    min-idle: 5 #最小空闲连接数
+    max-active: 20 #最大可连接数
+    max-wait: 60000 #连接池连接用完时，新的请求等待时间
+    #检查连接空间时间超过minEvictableIdleTimeMillis的连接断开，直到剩余连接数量为min-idle，代表1分钟检查一次
+    timeBetweenEvictionRunsMillis: 60000 #控制空闲连接数的回收周期,控制回收泄露连接的周期,连接的空闲时间大于该值testWhileIdle才起作用
+
+    minEvictableIdleTimeMillis: 300000 #连接池连接可空闲时间
+    validationQuery: SELECT user() #验证数据库连接是否成功
+    testWhileIdle: true #在检查空闲连接时同时也检查连接可用性
+    testOnBorrow: false #取得连接时检查连接可用性
+    testOnReturn: false #返还连接时检查连接可用性
+    poolPreparedStatements: true #是否缓存prepareStatement
+#redis配置
+  redis:
+    host: localhost
+    database: 0
+    port: 6379
+    timeout: 5000
+    jedis:
+      pool:
+        max-active: 1000
+        max-idle: 500
+        min-idle: 50
+        max-wait: 2000
+#ActiveMQ配置
+  activemq:
+    broker-url: tcp://localhost:61616
+    in-memory: true
+    pool:
+      enabled: false
+#定时任务设置线程池大小
+  task:
+    execution:
+      pool:
+        core-size: 10
+#设置邮箱
+  mail:
+    host: smtp.163.com
+    username: 18062022696@163.com
+    password: PKZOURSBKOBUEDDT
+
+mybatis:
+  # 指定别名设置的包为所有entity
+  type-aliases-package: com.javasm.bean.entity
+  configuration:
+    map-underscore-to-camel-case: true # 驼峰命名规范
+  mapper-locations: # mapper映射文件位置，不用同煲同目录
+    - classpath:com/javasm/mapper/*.xml
+
+
