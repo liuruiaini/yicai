@@ -6,7 +6,8 @@ package com.javasm.exception;
 public enum BusinessEnum {
     PRIMETER_EXCEPTION(101,"参数异常"),
     INTERFACEOUTTIME_EXCEPTION(102,"接口调用超时异常"),
-    AOP_EXCEPTION(103,"刚刚那个AOP异常了！！！");
+    AOP_EXCEPTION(103,"刚刚那个AOP异常了！！！"),
+    EMAIL_EXCEPTION(104,"邮件发送失败");
     private BusinessEnum(Integer code,String message){
         this.code=code;
         this.message=message;

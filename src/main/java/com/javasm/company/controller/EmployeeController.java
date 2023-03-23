@@ -7,6 +7,7 @@ import com.javasm.company.bean.Vo.CompanyEmployeeInfoVo;
 import com.javasm.company.mapper.CompanyEmployeeInfoMapper;
 import com.javasm.company.service.EmployeeService;
 import com.javasm.util.PaginationHelper;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -76,6 +77,11 @@ public class EmployeeController {
         map.put("num",count);
         map.put("returnData",returnData);
         return map;
+    }
+    @RequestMapping("addUser")
+    public ReturnData<Integer> addUser(@RequestBody CompanyEmployeeInfo  addEmployee,HttpServletRequest req){
+        System.out.println(addEmployee);
+        return employeeService.addUser(addEmployee,req);
     }
 
 }

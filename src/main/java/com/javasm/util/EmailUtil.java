@@ -1,5 +1,4 @@
-package com.javasm.mail;
-
+package com.javasm.util;
 import com.sun.xml.internal.messaging.saaj.packaging.mime.MessagingException;
 
 import javax.mail.*;
@@ -7,10 +6,8 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.security.GeneralSecurityException;
 import java.util.Properties;
-
-public class SendEamil {
-    public static void main(String[] args) throws MessagingException, GeneralSecurityException, javax.mail.MessagingException {
-        //创建一个配置文件并保存
+public class EmailUtil {
+    public static void sendEmail(String toEmail,String userName) throws MessagingException, GeneralSecurityException, javax.mail.MessagingException{
         Properties properties = new Properties();
 
         properties.setProperty("mail.host","smtp.163.com");
@@ -46,18 +43,19 @@ public class SendEamil {
         mimeMessage.setFrom(new InternetAddress("18062022696@163.com"));
 
         //邮件接收人
-        mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress("1216664332@qq.com"));
+        mimeMessage.setRecipient(Message.RecipientType.TO,new InternetAddress(toEmail));
 
         //邮件标题
-        mimeMessage.setSubject("入职通知书");
+        mimeMessage.setSubject("医彩登录邀请");
 
         //邮件内容
-        mimeMessage.setContent("恭喜你入职了","text/html;charset=UTF-8");
+        mimeMessage.setContent("你的主管"+userName+"邀请您登录医彩药事，网址为http://localhost:8080/,账号为"+toEmail+"密码为123456","text/html;charset=UTF-8");
 
         //发送邮件
         transport.sendMessage(mimeMessage,mimeMessage.getAllRecipients());
 
         //关闭连接
         transport.close();
+
     }
 }

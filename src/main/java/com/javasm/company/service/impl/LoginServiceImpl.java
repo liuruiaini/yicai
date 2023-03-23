@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Slf4j
 @Service
@@ -34,6 +36,10 @@ public class LoginServiceImpl implements LoginService {
             //2.若一致返回正确returnData；并将用户信息存入session；将accepet改为1
             //LambdaQueryWrapper<CompanyEmployeeInfo> queryWrapper2 = new LambdaQueryWrapper<>();
             companyEmployeeInfo.setAccept(1);
+            Date date = new Date();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String format = simpleDateFormat.format(date);
+            companyEmployeeInfo.setEmployeeLatestTime(format);
             int update = mapper.update(companyEmployeeInfo, queryWrapper);
             log.info("更新accepet是否成功===={}",update);
             req.getSession().setAttribute("loginUser",companyEmployeeInfo);
